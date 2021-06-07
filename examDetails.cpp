@@ -4,6 +4,7 @@
 using std::endl;
 namespace mtm
 {
+    // Verify input for ExamDetail creation
     void ExamDetails::verifyInput(int course_id, int month, int day,
                     double starting_hour, int length, string zoom_link)
     {
@@ -34,7 +35,7 @@ namespace mtm
     }
 
 
-
+    // Constructor
     ExamDetails::ExamDetails(int course_id, int month, int day, double starting_hour,
                             int length, string zoom_link)
     {
@@ -56,17 +57,6 @@ namespace mtm
             this->starting_minute = HALF_AN_HOUR;
         }
     }
-    
-    // ExamDetails::ExamDetails(const ExamDetails& sourceExamDetails) :
-    //                          course_id(sourceExamDetails.course_id) , month(sourceExamDetails.month) , 
-    //                          day(sourceExamDetails.day) , starting_hour(sourceExamDetails.starting_hour) , 
-    //                          length(sourceExamDetails.length) , zoom_link(sourceExamDetails.zoom_link)
-    // {}
-
-    // ExamDetails& ExamDetails::operator=(const ExamDetails& exam_details)
-    // {
-
-    // }
 
     int ExamDetails::operator-(const ExamDetails& exam_details) const
     {
@@ -77,30 +67,21 @@ namespace mtm
     
     bool ExamDetails::operator<(const ExamDetails& exam_details) const
     {
+        // Exams aren't on the same day - can determine which is first
         int days_difference = *this - exam_details;
-        if (days_difference < 0)
+        if (days_difference != 0)
         {
-            return true;
+            return days_difference < 0;
         }
 
-        if (days_difference > 0)
-        {
-            return false;
-        }
-
-        // Exams on the same day
+        // Exams are on the same day but aren't on the same hour
         int starting_hour_difference = (this->starting_hour) - (exam_details.starting_hour);
-        if (starting_hour_difference > 0)
+        if (starting_hour_difference != 0)
         {
-            return true;
-        }
-
-        if (starting_hour_difference < 0)
-        {
-            return false;
+            return starting_hour_difference > 0;
         }
         
-        // Exams on the same hour
+        // Exams on the same hour, determine by minutes
         return this->starting_minute > exam_details.starting_minute;
     }
 
@@ -132,8 +113,9 @@ namespace mtm
         return os;
     }
 
-    // static ExamDetails makeMatamExam()
-    // {
-    //     return ExamDetails()
-    // }
+    ExamDetails ExamDetails::makeMatamExam()
+    {
+        return ExamDetails(MTM_COURSE_ID, MTM_MONTH, MTM_DAY, MTM_HOUR,
+                           MTM_LENGTH, "https://tinyurl.com/59hzps6m");
+    }
 }

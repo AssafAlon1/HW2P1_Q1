@@ -114,7 +114,7 @@ int main ()
     ExamDetails detail2 = ExamDetails(104032, 7, 11, 9.5, 3, "https://log.sin.x");
     ExamDetails detail3 = ExamDetails(114071, 7, 15, 10, 3, "http://apple.com");
     ExamDetails detail4 = ExamDetails(234141, 7, 23, 12.5, 2, "https://eitan.ya.combi.co.il");
-    //ExamDetails detail5 = ExamDetails::makeMatamExam();
+    ExamDetails detail5 = ExamDetails::makeMatamExam();
     ExamDetails detail6 = ExamDetails(1000, 8, 5, 7.5, 4, "you are fake news");
     
     assert(detail2 - detail1 == 6);
@@ -125,16 +125,18 @@ int main ()
     assert(detail1 - detail6 == -30);
     assert(detail6 - detail2 == 24);
     assert(detail2 - detail6 == -24);
+    assert(detail4 - detail5 == -5);
+    assert(detail5 - detail4 == 5);
     assert(detail1 < detail2);
     assert(detail2 < detail3);
     assert(detail1 < detail3);
     assert(detail3 < detail4);
     assert(detail2 < detail4);
     assert(detail1 < detail4);
-    //assert(detail5 < detail4);
-    //assert(detail5 < detail3);
-    //assert(detail5 < detail2);
-    //assert(detail5 < detail1);
+    assert(detail4 < detail5);
+    assert(detail3 < detail5);
+    assert(detail2 < detail5);
+    assert(detail1 < detail5);
 
     assert(detail1.getLink() == "https://inverse.esrevni");
     assert(detail3.getLink() == "http://apple.com");
@@ -167,7 +169,7 @@ int main ()
     ExamDetails detail_midnight_exam = ExamDetails(1001, 3, 4, 0, 5, "https://link");
     
     cout << detail1 << endl << detail2 << endl << detail3 << endl << detail4 << endl /*<< detail1 << endl*/;
-
+    cout << detail_empty_str << endl << detail_midnight_exam << endl;
     cout << "[OK]" << endl;
     return 0;
 }

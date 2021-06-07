@@ -14,16 +14,21 @@ namespace mtm
                     int length, string zoom_link="");
         ExamDetails(const ExamDetails& sourceExamDetails) = default;
         ExamDetails& operator=(const ExamDetails& exam_details) = default;
-        int operator-(const ExamDetails& exam_details) const;
-        bool operator<(const ExamDetails& exam_details) const;
         ~ExamDetails() = default;
         string getLink();
         void setLink(string new_link);
+        int operator-(const ExamDetails& exam_details) const;
+        bool operator<(const ExamDetails& exam_details) const;
         static ExamDetails makeMatamExam();
 
         class InvalidDateException {};
         class InvalidTimeException {};
         class InvalidArgsException {};
+
+    private:
+        int course_id, month, day, length;
+        int starting_hour, starting_minute;
+        string zoom_link;
 
         static const int FIRST_DAY     = 1;
         static const int DAYS_IN_MONTH = 30;
@@ -31,16 +36,12 @@ namespace mtm
         static const int MAX_MONTH     = 12;
         static const int HALF_AN_HOUR  = 30;
 
-        static const int MTM_DAY      = 28;
-        static const int MTM_MONTH    = 7;
+        static const int MTM_COURSE_ID    = 234124;
+        static const int MTM_DAY          = 28;
+        static const int MTM_MONTH        = 7;
         static constexpr double MTM_HOUR  = 13.0;
-        static const int MTM_LENGTH   = 3;
-        //static const string MTM_LINK  = "https://tinyurl.com/59hzps6m";
-
-    private:
-        int course_id, month, day, length;
-        int starting_hour, starting_minute;
-        string zoom_link;
+        static const int MTM_LENGTH       = 3;
+        //static const string MTM_LINK      = "https://tinyurl.com/59hzps6m";
 
         static void verifyInput(int course_id, int month, int day,
                     double starting_hour, int length, string zoom_link);
