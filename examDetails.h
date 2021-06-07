@@ -18,7 +18,7 @@ namespace mtm
         bool operator<(const ExamDetails& exam_details) const;
         ~ExamDetails() = default;
         string getLink();
-        void setlink(string new_link);
+        void setLink(string new_link);
         static ExamDetails makeMatamExam();
 
         class InvalidDateException {};

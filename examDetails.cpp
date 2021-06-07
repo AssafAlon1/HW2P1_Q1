@@ -109,7 +109,7 @@ namespace mtm
         return this->zoom_link;
     }
 
-    void ExamDetails::setlink(string new_link)
+    void ExamDetails::setLink(string new_link)
     {
         this->zoom_link = new_link;
     }

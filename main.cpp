@@ -102,7 +102,7 @@ void dateTimeArgsTests()
     {
         my_exit("ARGS");
     }
-    
+
 
 }
 
@@ -140,9 +140,28 @@ int main ()
     assert(detail3.getLink() == "http://apple.com");
 
     cout << "[OK]" << endl ;
+
+
+
+
     cout << "Running extra ExamDetails tests... " << endl ;
 
     dateTimeArgsTests();
+
+    // Copy constructor
+    ExamDetails d1 = ExamDetails(detail1);
+    assert(!(d1 < detail1 || detail1 < d1));
+    cout << d1 << endl << endl << endl; 
+
+    // Assignment operator
+    ExamDetails d2 = detail2;
+    assert(!(d2 < detail2 || detail2 < d2));
+    cout << d2 << endl << endl << endl; 
+
+    d1.setLink("trash");
+    d2.setLink("trash");
+    cout << d1 << detail1 << endl << endl << endl;
+    cout << d2 << detail2 << endl << endl << endl; 
 
     ExamDetails detail_empty_str = ExamDetails(104031, 4, 15, 8.5, 3);
     ExamDetails detail_midnight_exam = ExamDetails(1001, 3, 4, 0, 5, "https://link");
