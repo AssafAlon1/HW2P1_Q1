@@ -4,6 +4,29 @@
 using std::endl;
 namespace mtm
 {
+    const std::string ExamDetails::MTM_LINK = "https://tinyurl.com/59hzps6m";
+    const double ExamDetails::MTM_HOUR = 13;
+    const double ExamDetails::EPSILON = 0.000001;
+
+    // Verify the hour is valid
+    bool ExamDetails::isHourValid(double starting_hour)
+    {
+        // Verify Time - hour is whithin the range 0:00-23:59
+        if (starting_hour < 0 || starting_hour > ExamDetails::HOURS_IN_DAY)
+        {
+            return false;
+        }
+
+        double fraction = starting_hour - int(starting_hour);
+        const double half     = double(HALF_AN_HOUR)/double(MINUTES_IN_HOUR);
+        if ((fraction < EPSILON) || (fraction < half+EPSILON && fraction > half-EPSILON))
+        {
+            return true;
+        }
+        return false;
+    }
+
+
     // Verify input for ExamDetail creation
     void ExamDetails::verifyInput(int course_id, int month, int day,
                     double starting_hour, int length, string zoom_link)
@@ -14,24 +37,18 @@ namespace mtm
             throw InvalidDateException();
         }
 
-        // Verify Time - hour is whithin the range 0:00-23:59
-        if (starting_hour < 0 || starting_hour > 24)
-        {
-            throw InvalidTimeException();
-        }
 
-        // Verify Time - hour is a multiply of 0.5
-        double fraction = starting_hour - int(starting_hour);
-        if ((fraction != 0 && fraction != 0.5) || length < 1) // @540
+        // Verify Time
+        if (!isHourValid(starting_hour) || length < 1) // @540
         {
             throw InvalidTimeException();
         }
 
         // Verify General 
-        if (course_id < 0) // @531
-        {
-            throw InvalidArgsException();
-        }
+        // if (course_id < 0) // @531
+        // {
+        //     throw InvalidArgsException();
+        // }
     }
 
 
@@ -90,7 +107,7 @@ namespace mtm
         return this->zoom_link;
     }
 
-    void ExamDetails::setLink(string new_link)
+    void ExamDetails::setLink(const string new_link)
     {
         this->zoom_link = new_link;
     }
@@ -116,6 +133,6 @@ namespace mtm
     ExamDetails ExamDetails::makeMatamExam()
     {
         return ExamDetails(MTM_COURSE_ID, MTM_MONTH, MTM_DAY, MTM_HOUR,
-                           MTM_LENGTH, "https://tinyurl.com/59hzps6m");
+                           MTM_LENGTH, MTM_LINK);
     }
 }

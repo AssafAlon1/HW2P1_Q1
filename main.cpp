@@ -93,15 +93,15 @@ void dateTimeArgsTests()
     }
 
     // Course id is negative
-    try {
-        ExamDetails detail_invalid_args1 = ExamDetails(-3, 11, 29, 12.5, 3);
-        my_exit("ARGS");
-    }
-    catch (ExamDetails::InvalidArgsException){}
-    catch (...)
-    {
-        my_exit("ARGS");
-    }
+    // try {
+    //     ExamDetails detail_invalid_args1 = ExamDetails(-3, 11, 29, 12.5, 3);
+    //     my_exit("ARGS");
+    // }
+    // catch (ExamDetails::InvalidArgsException){}
+    // catch (...)
+    // {
+    //     my_exit("ARGS");
+    // }
 
 
 }
