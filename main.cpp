@@ -81,9 +81,9 @@ void dateTimeArgsTests()
     }
 
 
-     // Hour is 12.5001
+     // Hour is 12.50001
     try {
-        ExamDetails detail_invalid_hour4 = ExamDetails(104031, 11, 29, 12.5001, 3);
+        ExamDetails detail_invalid_hour4 = ExamDetails(104031, 11, 29, 12.50001, 3);
         my_exit("TIME");
     }
     catch (ExamDetails::InvalidTimeException){}
@@ -92,6 +92,8 @@ void dateTimeArgsTests()
         my_exit("TIME");
     }
 
+     // Hour is 12.500001
+    ExamDetails valid_hour1 = ExamDetails(104031, 11, 29, 12.500001, 3);
     // Course id is negative
     // try {
     //     ExamDetails detail_invalid_args1 = ExamDetails(-3, 11, 29, 12.5, 3);
