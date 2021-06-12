@@ -2,21 +2,24 @@
 #include <iostream>
 
 using std::endl;
+
 namespace mtm
 {
+    // Defining non-int magic numbers
     const std::string ExamDetails::MTM_LINK = "https://tinyurl.com/59hzps6m";
-    const double ExamDetails::MTM_HOUR = 13;
-    const double ExamDetails::EPSILON = 0.000001;
+    const double      ExamDetails::MTM_HOUR = 13;
+    const double      ExamDetails::EPSILON  = 0.000001;
 
     // Verify the hour is valid
     bool ExamDetails::isHourValid(double starting_hour)
     {
         // Verify Time - hour is whithin the range 0:00-23:59
-        if (starting_hour < 0 || starting_hour > ExamDetails::HOURS_IN_DAY)
+        if (starting_hour < 0 || starting_hour >= ExamDetails::HOURS_IN_DAY)
         {
             return false;
         }
 
+        // Verify time - hour is xx:00 or xx:30
         double fraction = starting_hour - int(starting_hour);
         const double half     = double(HALF_AN_HOUR)/double(MINUTES_IN_HOUR);
         if ((fraction < EPSILON) || (fraction < half+EPSILON && fraction > half-EPSILON))
@@ -75,6 +78,7 @@ namespace mtm
         }
     }
 
+    // Minus operator - difference in days
     int ExamDetails::operator-(const ExamDetails& exam_details) const
     {
         int month_difference = (this->month) - (exam_details.month);
@@ -82,6 +86,7 @@ namespace mtm
         return month_difference*DAYS_IN_MONTH + days_difference;
     }
     
+    // Less than operator - compares dates
     bool ExamDetails::operator<(const ExamDetails& exam_details) const
     {
         // Exams aren't on the same day - can determine which is first
@@ -102,7 +107,7 @@ namespace mtm
         return this->starting_minute > exam_details.starting_minute;
     }
 
-    string ExamDetails::getLink()
+    string ExamDetails::getLink() const
     {
         return this->zoom_link;
     }
@@ -112,13 +117,14 @@ namespace mtm
         this->zoom_link = new_link;
     }
 
-
+    // Print exam as requested
     std::ostream& operator<<(std::ostream& os, const ExamDetails& exam_details)
     {
         os << "Course Number: " << exam_details.course_id << endl;
         os << "Time: " << exam_details.day << "." << exam_details.month << " at ";
         os << exam_details.starting_hour << ":";
 
+        // Printing extra 0 in minutes if needed
         if (exam_details.starting_minute < 10)
         {
             os << "0";
@@ -130,6 +136,7 @@ namespace mtm
         return os;
     }
 
+    // Makes a matam test
     ExamDetails ExamDetails::makeMatamExam()
     {
         return ExamDetails(MTM_COURSE_ID, MTM_MONTH, MTM_DAY, MTM_HOUR,

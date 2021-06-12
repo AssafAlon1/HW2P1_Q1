@@ -15,12 +15,14 @@ namespace mtm
         ExamDetails(const ExamDetails& sourceExamDetails) = default;
         ExamDetails& operator=(const ExamDetails& exam_details) = default;
         ~ExamDetails() = default;
-        string getLink();
+        string getLink() const;
         void setLink(const string new_link);
         int operator-(const ExamDetails& exam_details) const;
         bool operator<(const ExamDetails& exam_details) const;
+        
         static ExamDetails makeMatamExam();
 
+        // Error classes
         class InvalidDateException {};
         class InvalidTimeException {};
         class InvalidArgsException {};
@@ -30,6 +32,7 @@ namespace mtm
         int starting_hour, starting_minute;
         string zoom_link;
 
+        // General magic numbers
         static const int FIRST_DAY       = 1;
         static const int DAYS_IN_MONTH   = 30;
         static const int MIN_MONTH       = 1;
@@ -39,6 +42,7 @@ namespace mtm
         static const int HOURS_IN_DAY    = 24;
         static const double EPSILON;
 
+        // MTM test magic numbers
         static const int MTM_COURSE_ID    = 234124;
         static const int MTM_DAY          = 28;
         static const int MTM_MONTH        = 7;
